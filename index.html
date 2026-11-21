@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>La Patasola · Juan Felipe López</title>
+  <meta name="description" content="Portafolio de proceso de Juan Felipe López: el rig, los idles y la cinemática de la Patasola en Leyend-itas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Caveat:wght@500;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- ===== Ilustraciones reutilizables ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <radialGradient id="glow"><stop offset="0" stop-color="#fff6c9"/><stop offset=".35" stop-color="#f2c95e"/><stop offset="1" stop-color="#f2c95e" stop-opacity="0"/></radialGradient>
+    </defs>
+    <symbol id="star" viewBox="0 0 40 40"><path d="M20 2 L24 15 L38 16 L27 24 L31 38 L20 30 L9 38 L13 24 L2 16 L16 15 Z" fill="currentColor" stroke="#2b2118" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="spark" viewBox="0 0 40 40"><path d="M20 3 C21 15 25 19 37 20 C25 21 21 25 20 37 C19 25 15 21 3 20 C15 19 19 15 20 3 Z" fill="currentColor" stroke="#2b2118" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="pine" viewBox="0 0 60 100"><path d="M30 4 L46 34 H38 L52 60 H40 L56 86 H4 L20 60 H8 L22 34 H14 Z" fill="currentColor" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round"/><rect x="26" y="86" width="8" height="12" fill="#6b3e22" stroke="#2b2118" stroke-width="2.2"/></symbol>
+    <symbol id="deadtree" viewBox="0 0 80 110"><path d="M40 108 C38 80 41 60 38 40 M38 60 C30 50 22 48 14 36 M22 47 C18 44 12 46 8 42 M39 48 C48 40 56 36 62 24 M55 33 C60 32 66 34 72 30 M38 40 C36 28 40 18 36 6 M37 22 C32 18 28 16 26 10" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+    <symbol id="moon" viewBox="0 0 60 60"><path d="M40 6 A26 26 0 1 0 54 44 A20 20 0 1 1 40 6 Z" fill="currentColor" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round"/></symbol>
+    <symbol id="mushroom" viewBox="0 0 60 60"><path d="M6 30 C6 12 54 12 54 30 Z" fill="#7d4fa8" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round"/><path d="M24 30 C23 42 22 50 20 56 H40 C38 50 37 42 36 30 Z" fill="#f4ead3" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round"/><circle cx="20" cy="22" r="3" fill="#f4ead3"/><circle cx="34" cy="18" r="4" fill="#f4ead3"/><circle cx="44" cy="25" r="2.5" fill="#f4ead3"/></symbol>
+    <symbol id="fire" viewBox="0 0 80 80"><path d="M14 70 L66 58 M14 58 L66 70" stroke="#6b3e22" stroke-width="8" stroke-linecap="round"/><path d="M40 8 C52 24 60 34 56 48 C54 58 46 62 40 62 C30 62 22 56 22 46 C22 36 30 34 30 24 C36 30 36 36 40 38 C42 28 38 18 40 8 Z" fill="#c2552b" stroke="#2b2118" stroke-width="2.4" stroke-linejoin="round"/><path d="M40 32 C46 40 50 46 47 52 C45 57 35 57 33 52 C31 46 37 44 40 32 Z" fill="#f2c95e"/></symbol>
+    <symbol id="gamepad" viewBox="0 0 80 50"><path d="M18 8 H62 C74 8 78 26 76 38 C74 48 64 48 58 40 L52 34 H28 L22 40 C16 48 6 48 4 38 C2 26 6 8 18 8 Z" fill="currentColor" stroke="#2b2118" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 18 V30 M14 24 H26" stroke="#2b2118" stroke-width="3" stroke-linecap="round"/><circle cx="56" cy="20" r="3.4" fill="#2b2118"/><circle cx="62" cy="28" r="3.4" fill="#2b2118"/></symbol>
+    <symbol id="pencil" viewBox="0 0 80 30"><path d="M4 15 L16 6 H70 C74 6 76 10 76 15 C76 20 74 24 70 24 H16 Z" fill="currentColor" stroke="#2b2118" stroke-width="2.6" stroke-linejoin="round"/><path d="M16 6 V24 M4 15 L10 12 V18 Z M62 6 V24" stroke="#2b2118" stroke-width="2.4" fill="#2b2118" stroke-linejoin="round"/></symbol>
+    <symbol id="clapper" viewBox="0 0 70 60"><rect x="6" y="22" width="58" height="34" rx="4" fill="currentColor" stroke="#2b2118" stroke-width="2.6"/><path d="M6 22 L60 8 L64 20 Z" fill="#f4ead3" stroke="#2b2118" stroke-width="2.6" stroke-linejoin="round"/><path d="M20 18 L26 12 M34 15 L40 9 M48 11 L54 6" stroke="#2b2118" stroke-width="3"/></symbol>
+    <symbol id="arrow" viewBox="0 0 120 60"><path d="M6 50 C30 10 70 4 104 22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M92 10 L106 23 L88 30" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="squiggle" viewBox="0 0 200 16"><path d="M2 10 C20 2 30 14 48 8 S78 2 96 9 S128 15 146 7 S180 3 198 9" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></symbol>
+  </svg>
+
+  <nav class="topnav" aria-label="Secciones">
+    <a class="brand" href="#inicio">J. F. López</a>
+    <div class="topnav-links">
+      <a href="#visor">Visor 3D</a>
+      <a href="#animaciones">Animaciones</a>
+      <a href="#bitacora">Bitácora</a>
+      <a href="#creditos">Créditos</a>
+    </div>
+  </nav>
+
+  <!-- ===== Portada: el campamento al atardecer ===== -->
+  <header id="inicio" class="band hero">
+    <svg class="float s1" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="float s2" aria-hidden="true"><use href="#spark"/></svg>
+    <svg class="float s3" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="hero-moon" aria-hidden="true"><use href="#moon"/></svg>
+
+    <div class="wrap hero-grid">
+      <div class="hero-text reveal">
+        <p class="hand kicker">portafolio de proceso · animación 3D</p>
+        <h1 class="title" aria-label="La Patasola">
+          <span class="w1">La</span>
+          <span class="word" aria-hidden="true"><b>P</b><b>a</b><b>t</b><b>a</b><b>s</b><b>o</b><b>l</b><b>a</b></span>
+        </h1>
+        <p class="byline">Juan Felipe López <svg class="mini-star" aria-hidden="true"><use href="#star"/></svg> diseñador interactivo</p>
+        <p class="lead">
+          Este es el recorrido de cómo la Patasola pasó de ser un muñeco por piezas a una leyenda
+          que acecha en la cinemática de <strong>Leyend-itas</strong>. Aquí está lo que animé, lo que salió mal,
+          lo que corregí y cómo lo fuimos uniendo todo.
+        </p>
+        <div class="hero-actions">
+          <a class="btn" href="#visor">Verla en 3D</a>
+          <a class="link-hand" href="#bitacora">o empieza por el proceso →</a>
+        </div>
+      </div>
+
+      <figure class="hero-art reveal">
+        <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+        <div class="blob">
+          <img src="img/hero_patasola.jpg" alt="La Patasola en el bosque, fotograma de la cinemática final en Unity" width="1400" height="788">
+        </div>
+      </figure>
+    </div>
+
+    <!-- Bosque al borde de la portada -->
+    <div class="treeline" aria-hidden="true">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="xMidYMax slice">
+        <use href="#pine" x="-10" y="20" width="60" height="100" color="#6e7b35"/>
+        <use href="#pine" x="40" y="0" width="72" height="120" color="#55622a"/>
+        <use href="#fire" x="130" y="58" width="60" height="60"/>
+        <use href="#pine" x="210" y="30" width="54" height="90" color="#6e7b35"/>
+        <use href="#pine" x="300" y="10" width="66" height="110" color="#55622a"/>
+        <use href="#pine" x="360" y="40" width="48" height="80" color="#6e7b35"/>
+        <use href="#mushroom" x="470" y="86" width="34" height="34"/>
+        <use href="#pine" x="560" y="20" width="60" height="100" color="#55622a"/>
+        <use href="#pine" x="700" y="35" width="50" height="85" color="#6e7b35"/>
+        <use href="#pine" x="760" y="5" width="70" height="115" color="#55622a"/>
+        <use href="#deadtree" x="880" y="20" width="70" height="100" color="#2b2118"/>
+        <use href="#pine" x="980" y="25" width="58" height="95" color="#6e7b35"/>
+        <use href="#mushroom" x="1050" y="88" width="30" height="30"/>
+        <use href="#pine" x="1090" y="0" width="72" height="120" color="#55622a"/>
+        <use href="#pine" x="1160" y="30" width="54" height="90" color="#6e7b35"/>
+      </svg>
+    </div>
+  </header>
+
+  <!-- ===== Sobre mí ===== -->
+  <section id="sobre-mi" class="band about">
+    <div class="wrap about-grid">
+      <div class="about-me reveal">
+        <h2 class="h2">Hola, soy Juan Felipe</h2>
+        <p class="big-quote">
+          Soy diseñador interactivo. Me gustan mucho los <mark class="m1">videojuegos</mark>,
+          <mark class="m2">dibujar</mark> y las <mark class="m3">películas</mark>, y la animación 3D es justo el punto donde se cruzan las tres.
+        </p>
+        <div class="doodles" aria-hidden="true">
+          <svg class="d-game"><use href="#gamepad"/></svg>
+          <svg class="d-pencil"><use href="#pencil"/></svg>
+          <svg class="d-film"><use href="#clapper"/></svg>
+        </div>
+      </div>
+      <div class="about-role reveal">
+        <p class="hand label">mi parte con la Patasola</p>
+        <ul class="star-list">
+          <li>Hice mi propio <strong>rig y mis animaciones</strong> en las entregas individuales, usando como base el proxy de Génesis.</li>
+          <li>Con Génesis sacamos adelante el <strong>modelo final</strong>: optimicé y mejoré la malla a mano en Maya, adaptamos UVs y texturas y le pasamos las animaciones.</li>
+          <li>Me encargué de <strong>montar la escena de la cinemática final en Unity</strong>. No la hice solo, pero el armado quedó en mis manos.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== La historia ===== -->
+  <section class="band story">
+    <div class="wrap story-grid">
+      <div class="story-text reveal">
+        <p class="hand label light">el proyecto</p>
+        <h2 class="h2 light">Leyend-itas</h2>
+        <p>
+          En un bosque escondido conviven dos mundos. De un lado, los <strong>Itas</strong>, criaturitas peludas que juegan
+          junto a la fogata. Del otro, la dimensión <strong>Leyend-itas</strong>, donde viven las leyendas latinoamericanas
+          y donde todo se marchita, porque las leyendas solo existen mientras alguien las recuerda.
+        </p>
+        <p>
+          Una noche, Ita Azul cruza el límite persiguiendo su gorra y se encuentra cara a cara con la Llorona y la Patasola.
+          Su presencia es justo lo que ellas necesitaban para volver a brillar.
+        </p>
+      </div>
+      <aside class="story-patasola reveal">
+        <p class="hand">¿y la Patasola?</p>
+        <p>Una mujer de una sola pierna, cabello rojo y vestido morado. En el tráiler se mueve lenta y cansada, apagada por el olvido. En la cinemática es la primera leyenda que encuentra Ita… y la amenaza.</p>
+      </aside>
+    </div>
+    <!-- Sendero de luces entre los dos mundos -->
+    <svg class="path-scene" viewBox="0 0 1200 200" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <use href="#pine" x="10" y="70" width="70" height="120" color="#6e7b35"/>
+      <use href="#pine" x="70" y="100" width="52" height="90" color="#55622a"/>
+      <use href="#fire" x="130" y="125" width="64" height="64"/>
+      <path class="trail" d="M200 170 C330 120 380 190 520 140 S760 80 860 130 S1020 160 1080 110" fill="none" stroke="#f4ead3" stroke-width="3" stroke-dasharray="2 14" stroke-linecap="round"/>
+      <g class="trail-orbs">
+        <circle cx="300" cy="150" r="16" fill="url(#glow)"/>
+        <circle cx="450" cy="160" r="14" fill="url(#glow)"/>
+        <circle cx="610" cy="118" r="17" fill="url(#glow)"/>
+        <circle cx="780" cy="100" r="13" fill="url(#glow)"/>
+        <circle cx="950" cy="148" r="16" fill="url(#glow)"/>
+      </g>
+      <use href="#deadtree" x="1060" y="40" width="100" height="150" color="#f4ead3"/>
+      <use href="#mushroom" x="1010" y="150" width="40" height="40"/>
+      <use href="#deadtree" x="1140" y="80" width="60" height="110" color="#c9cf9b"/>
+    </svg>
+  </section>
+
+  <!-- ===== Visor 3D (noche) ===== -->
+  <section id="visor" class="band night">
+    <div class="stars" aria-hidden="true"></div>
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="hand label light">tócala, gírala, mírala de cerca</p>
+        <h2 class="h2 light">La Patasola en 3D</h2>
+        <p class="lead light">Arrastra para girar, usa la rueda para acercarte y el clic derecho para moverte. Puedes cambiar entre el modelo final y el proxy con el que animé, y entre sus animaciones.</p>
+      </div>
+
+      <div class="viewer main-viewer" data-viewer="main" data-distance="3.8" data-light="estudio">
+        <div class="viewer-tabs viewer-models" role="group" aria-label="Modelo"></div>
+        <div class="viewer-canvas">
+          <div class="moonglow" aria-hidden="true"></div>
+          <div class="viewer-loading" hidden>
+            <span class="loader-orb"></span>
+            <p class="viewer-loading-text">Cargando…</p>
+          </div>
+          <div class="viewer-hud">
+            <button type="button" class="hud-btn" data-action="play">Pausa</button>
+            <input class="viewer-scrub" type="range" min="0" max="1" step="0.001" value="0" aria-label="Línea de tiempo">
+            <span class="viewer-frame" aria-label="Frame actual">—</span>
+          </div>
+        </div>
+        <div class="viewer-bottom">
+          <div>
+            <p class="viewer-info"></p>
+            <div class="viewer-clips" role="group" aria-label="Animaciones"></div>
+          </div>
+          <div class="viewer-tools">
+            <label class="toggle"><input type="checkbox" data-toggle="wire"><span>Malla</span></label>
+            <label class="toggle"><input type="checkbox" data-toggle="skeleton"><span>Esqueleto</span></label>
+            <label class="select">Luz
+              <select class="viewer-lights">
+                <option value="estudio">Estudio</option>
+                <option value="noche">Noche</option>
+                <option value="plana">Plana</option>
+              </select>
+            </label>
+            <label class="select">Velocidad
+              <select class="viewer-speed">
+                <option value="0.25">0.25×</option>
+                <option value="0.5">0.5×</option>
+                <option value="1" selected>1×</option>
+              </select>
+            </label>
+            <button type="button" class="text-btn" data-action="reset">Recentrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Animaciones finales ===== -->
+  <section id="animaciones" class="band cinema">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="hand label light">el resultado</p>
+        <h2 class="h2 light">Animaciones finales</h2>
+      </div>
+
+      <article class="screening reveal">
+        <div class="screen">
+          <video controls preload="none" playsinline poster="img/posters/cinematica_unity.jpg">
+            <source src="Entrega_Final/UNITY_CINEMATICA_LEYENDITAS.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="screening-text">
+          <p class="hand tag-hand">en tiempo real · Unity</p>
+          <h3 class="h3 light">Cinemática final</h3>
+          <p>
+            Una ráfaga le arranca la gorra a Ita Azul y, persiguiéndola, termina en el bosque de las leyendas.
+            La primera que encuentra es la Patasola, que la recorre con la mirada y la amenaza. Al final, las dos
+            leyendas se encienden de energía mientras la cámara se aleja sobre el paisaje.
+          </p>
+          <p class="aside">Yo me encargué de montar esta escena: los dos escenarios, los personajes, las cámaras, la luz y los efectos.</p>
+          <p class="meta">51 s · 1080p</p>
+        </div>
+      </article>
+
+      <article class="screening flip reveal">
+        <div class="screen">
+          <video controls preload="none" playsinline poster="img/posters/trailer_maya.jpg">
+            <source src="Entrega_Final/MAYA_TRAILER_LEYENDITAS.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="screening-text">
+          <p class="hand tag-hand">animado en Maya</p>
+          <h3 class="h3 light">Tráiler</h3>
+          <p>
+            Unas luces guía aparecen en el campamento y Ita Azul las sigue hasta Leyend-itas, un bosque que se está
+            muriendo. Ahí la Patasola corre cansada hacia la Llorona, las dos a punto de desvanecerse, hasta que Ita
+            llega y los ojos de la Llorona se encienden en rojo.
+          </p>
+          <p class="meta">46 s · 1080p</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== Bitácora ===== -->
+  <section id="bitacora" class="band journal">
+    <div class="wrap">
+      <div class="section-head center reveal">
+        <p class="hand label">paso a paso</p>
+        <h2 class="h2">Bitácora del proceso</h2>
+        <p class="lead">Sigue las luces: así fue el camino desde el primer rig hasta la escena final. Haz clic en las fotos para verlas en grande.</p>
+      </div>
+
+      <ol class="trail-list">
+        <!-- 1 -->
+        <li class="step">
+          <span class="step-orb" aria-hidden="true">1</span>
+          <div class="step-text reveal">
+            <p class="hand step-tag">Task 03</p>
+            <h3 class="h3 big">Armando el esqueleto</h3>
+            <p>
+              Partí del proxy que hizo Génesis: un muñeco por piezas que me sirvió para empezar a construir el rig.
+              Le armé su esqueleto, lo configuré en HumanIK y le puse controles para poder animarlo. Luego hice
+              pruebas doblando la pierna, moviendo la cadera, subiendo los brazos y cambiando el apoyo, para ver
+              que todo respondiera.
+            </p>
+            <blockquote class="feedback">
+              <span class="hand">lo que me dijeron</span>
+              Que revisara las poses más difíciles desde un lado o en tres cuartos, sobre todo cómo trabajan juntas
+              la cadera, la rodilla y el pie cuando se apoya, y que ordenara mejor el archivo.
+            </blockquote>
+            <p class="did"><span class="hand">lo que hice</span> Mejoré la nomenclatura del rig y dejé una pose de referencia clara. Esa misma base fue la que usé de ahí en adelante, hasta el modelo final.</p>
+          </div>
+          <div class="step-media">
+            <button class="polaroid p-left" data-full="Rig%20patasola%20proxy%20inicial/Proxy_Pasola_Modelo.png"><img loading="lazy" src="Rig%20patasola%20proxy%20inicial/Proxy_Pasola_Modelo.png" alt="El proxy de la Patasola por piezas"><span>el proxy por piezas</span></button>
+            <button class="polaroid p-right" data-full="Rig%20patasola%20proxy%20inicial/PrimerAcercamiento_Definicion_HumanIK.png"><img loading="lazy" src="Rig%20patasola%20proxy%20inicial/PrimerAcercamiento_Definicion_HumanIK.png" alt="Primera configuración en HumanIK"><span>primer intento en HumanIK</span></button>
+            <button class="polaroid p-left" data-full="Rig%20patasola%20proxy%20inicial/Proxy_Patasola_Funcional_Control.png"><img loading="lazy" src="Rig%20patasola%20proxy%20inicial/Proxy_Patasola_Funcional_Control.png" alt="El rig funcionando con controles"><span>¡ya se mueve!</span></button>
+            <figure class="polaroid p-right is-video">
+              <video controls preload="none" playsinline poster="img/posters/playblast1.jpg"><source src="Rig%20patasola%20proxy%20inicial/playblast1.mov" type="video/mp4"></video>
+              <figcaption>pruebas de movimiento</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <!-- 2 -->
+        <li class="step">
+          <span class="step-orb" aria-hidden="true">2</span>
+          <div class="step-text reveal">
+            <p class="hand step-tag">Task 04</p>
+            <h3 class="h3 big">Buscando a la depredadora</h3>
+            <p>
+              La Patasola es una leyenda terrorífica y monstruosa, así que desde el principio quería que sus idles se
+              sintieran como los de una <strong>depredadora: sigilosa y siniestra</strong>. Hice los primeros estados
+              de reposo dentro del bosque del proyecto y fui sacando versiones para comparar.
+            </p>
+            <blockquote class="feedback">
+              <span class="hand">lo que me dijeron</span>
+              Que las diferencias de postura ya transmitían intención, pero que reforzara el apoyo y el traslado del peso,
+              que el torso y los brazos tuvieran ritmos un poco distintos para que se sintiera más orgánico, y que había
+              algo raro con el pecho.
+            </blockquote>
+            <p class="did"><span class="hand">lo que hice</span> Trabajé mucho el peso. Como no tiene una pierna, traté de recrear ese desbalance y la forma en que el cuerpo compensa para no caerse.</p>
+          </div>
+          <div class="step-media">
+            <button class="polaroid p-right" data-full="Task4/Escenario%20Task%204/Escenario_Task4.png"><img loading="lazy" src="Task4/Escenario%20Task%204/Escenario_Task4.png" alt="El bosque donde probé los idles"><span>el bosque de pruebas</span></button>
+            <figure class="polaroid p-left is-video">
+              <video controls preload="none" playsinline poster="img/posters/task04_v001.jpg"><source src="Task4/Idles/PB_Patasola_TASK04_IDLES_v001.mov" type="video/mp4"></video>
+              <figcaption>primera versión</figcaption>
+            </figure>
+            <figure class="polaroid p-right is-video">
+              <video controls preload="none" playsinline poster="img/posters/task04_v002.jpg"><source src="Task4/Idles/PB_Patasola_TASK04_IDLES_v002.mov" type="video/mp4"></video>
+              <figcaption>segunda versión</figcaption>
+            </figure>
+            <figure class="polaroid p-left is-video">
+              <video controls preload="none" playsinline poster="img/posters/task04_recopilacion.jpg"><source src="Task4/Idles/PB_Patasola_TASK04_IDLES_RECOPILACION_v001.mp4" type="video/mp4"></video>
+              <figcaption>todos los idles juntos</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <!-- 3 -->
+        <li class="step">
+          <span class="step-orb" aria-hidden="true">3</span>
+          <div class="step-text reveal">
+            <p class="hand step-tag">Task 05</p>
+            <h3 class="h3 big">Tres idles y el salto a Unity</h3>
+            <p>
+              Refiné tres estados de reposo y los empujé hacia algo más <strong>desesperado, con instinto asesino</strong>.
+              Aquí apareció el problema más raro del proceso: cada vez que cerraba y abría el archivo de Maya, el pecho
+              cambiaba de posición y los idles se iban encorvando cada vez más. Lo solucioné dejando de traer el proxy
+              desde otro archivo y metiéndolo directamente en la escena principal.
+            </p>
+            <p>
+              Después tocaba llevarlos a Unity: exporté las animaciones, armé el prefab, le conecté los clips y los monté
+              en el Timeline con sus cámaras. Lo más difícil fue que Unity reconociera el rig, porque al tener una sola
+              pierna no encajaba en lo que espera de un personaje normal. Costó, pero se logró.
+            </p>
+            <blockquote class="feedback">
+              <span class="hand">lo que me dijeron</span>
+              Que diferenciara más la intención de cada estado: qué está mirando, cuánta energía tiene y cómo sostiene
+              su peso. Que una pequeña anticipación de la cabeza o el torso y una pausa bien puesta ayudarían a que
+              se leyera mejor cada decisión.
+            </blockquote>
+          </div>
+          <div class="step-media">
+            <button class="polaroid p-left" data-full="Task5/IdleA_Maya.png"><img loading="lazy" src="Task5/IdleA_Maya.png" alt="Idle A en Maya"><span>idle A</span></button>
+            <button class="polaroid p-right" data-full="Task5/IdleB_Maya.png"><img loading="lazy" src="Task5/IdleB_Maya.png" alt="Idle B en Maya"><span>idle B</span></button>
+            <button class="polaroid p-left" data-full="Task5/IdleC_Maya.png"><img loading="lazy" src="Task5/IdleC_Maya.png" alt="Idle C en Maya"><span>idle C</span></button>
+            <button class="polaroid p-right" data-full="Task5/Integracion_Unity/Timeline_Cinemachine_Unity.png"><img loading="lazy" src="Task5/Integracion_Unity/Timeline_Cinemachine_Unity.png" alt="El Timeline con las cámaras en Unity"><span>el Timeline en Unity</span></button>
+            <figure class="polaroid p-left is-video wide">
+              <video controls preload="none" playsinline poster="img/posters/task05_video.jpg"><source src="Task5/Integracion_Unity/LópezFelipe_TASK05_Video.mp4" type="video/mp4"></video>
+              <figcaption>los tres idles ya en Unity</figcaption>
+            </figure>
+            <figure class="polaroid p-right is-video wide">
+              <video controls preload="none" playsinline poster="img/posters/idlestates_unity.jpg"><source src="Task5/Integracion_Unity/SC_IdleStates_WORK%20-%20SampleScene%20-%20Windows,%20Mac,%20Linux%20-%20Unity%206.3%20LTS%20(6000.3.9f1)%20_DX12_%202026-11-20%2014-08-24.mp4" type="video/mp4"></video>
+              <figcaption>probándolos en la escena</figcaption>
+            </figure>
+          </div>
+        </li>
+
+        <!-- 4 -->
+        <li class="step">
+          <span class="step-orb" aria-hidden="true">4</span>
+          <div class="step-text reveal">
+            <p class="hand step-tag">con Génesis</p>
+            <h3 class="h3 big">La Patasola final</h3>
+            <p>
+              Con Génesis hicimos el modelo definitivo. Yo optimicé la malla y la fui mejorando a mano en Maya,
+              adaptamos las UVs y las texturas, y le pasamos las animaciones. Como el modelo final conserva el mismo
+              esqueleto del proxy, todo lo que había animado antes se podía llevar al personaje terminado.
+            </p>
+            <p class="did"><span class="hand">las texturas</span> Estas son las texturas que sacamos para la Patasola: cabeza, torso, pierna, vestido, peluca y los detalles amarillos. Al lado la puedes ver en pose T para revisar cómo quedaron sobre el modelo.</p>
+          </div>
+          <div class="step-media">
+            <div class="viewer mini-viewer" data-viewer="tpose" data-distance="3.4">
+              <div class="viewer-canvas">
+                <div class="moonglow" aria-hidden="true"></div>
+                <div class="viewer-loading" hidden>
+                  <span class="loader-orb"></span>
+                  <p class="viewer-loading-text">Cargando…</p>
+                </div>
+                <span class="mini-label hand">gírala</span>
+              </div>
+            </div>
+            <div class="swatches">
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/Head_Patasola_basecolor.JPEG"><img loading="lazy" src="img/texturas/Head_Patasola_basecolor.jpg" alt="Textura de cabeza de la Patasola"><span>cabeza</span></button>
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/Torso_Patasola_basecolor.JPEG"><img loading="lazy" src="img/texturas/Torso_Patasola_basecolor.jpg" alt="Textura de torso de la Patasola"><span>torso</span></button>
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/elongated_leg_3d_model_basecolor.JPEG"><img loading="lazy" src="img/texturas/elongated_leg_3d_model_basecolor.jpg" alt="Textura de pierna de la Patasola"><span>pierna</span></button>
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/purple_dress_3d_model_basecolor.JPEG"><img loading="lazy" src="img/texturas/purple_dress_3d_model_basecolor.jpg" alt="Textura de vestido de la Patasola"><span>vestido</span></button>
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/red_wig_3d_model_basecolor.JPEG"><img loading="lazy" src="img/texturas/red_wig_3d_model_basecolor.jpg" alt="Textura de peluca de la Patasola"><span>peluca</span></button>
+              <button class="swatch" data-full="Animaciones_Patasola/CHR_Model_Patasola_TPose_TEXTURASUVS.fbm/yellow_abstract_3d_model_basecolor.JPEG"><img loading="lazy" src="img/texturas/yellow_abstract_3d_model_basecolor.jpg" alt="Textura de detalles de la Patasola"><span>detalles</span></button>
+            </div>
+            <button class="polaroid p-left" data-full="Animaciones_Patasola/Modelo_Patasola.png"><img loading="lazy" src="Animaciones_Patasola/Modelo_Patasola.png" alt="El modelo final de la Patasola en Maya"><span>el modelo final</span></button>
+            <button class="polaroid p-right" data-full="Animaciones_Patasola/Modelo_Patasola_RigIntegrado.png"><img loading="lazy" src="Animaciones_Patasola/Modelo_Patasola_RigIntegrado.png" alt="El modelo final con su rig"><span>ya con su rig</span></button>
+          </div>
+        </li>
+
+        <!-- 5 -->
+        <li class="step">
+          <span class="step-orb" aria-hidden="true">5</span>
+          <div class="step-text reveal">
+            <p class="hand step-tag">entrega final</p>
+            <h3 class="h3 big">Todo junto: la cinemática</h3>
+            <p>
+              Al final tocaba unir el trabajo de todo el equipo. Me encargué de montar la escena de la cinemática en Unity:
+              juntar el campamento de los Itas y el bosque de Leyend-itas en un solo lugar, poner a los cuatro personajes,
+              organizar las cámaras en el Timeline y acomodar la luz y los efectos, como la niebla, el fuego y las luces guía.
+              Fue un trabajo de todos, pero ver la escena completa funcionando fue lo mejor del proceso.
+            </p>
+            <a class="btn" href="#animaciones">Ver la cinemática</a>
+          </div>
+          <div class="step-media">
+            <figure class="polaroid p-left still"><img loading="lazy" src="img/posters/cinematica_unity.jpg" alt="La Patasola en la cinemática final"><figcaption>la Patasola en la cinemática</figcaption></figure>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ===== Créditos ===== -->
+  <section id="creditos" class="band credits-band">
+    <div class="wrap credits">
+      <div class="credits-intro reveal">
+        <p class="hand label light">gracias</p>
+        <h2 class="h2 light">Créditos</h2>
+        <p>La Patasola fue un trabajo en conjunto. Génesis y yo nos fuimos ayudando en todo: no hay nada que hayamos hecho completamente solos.</p>
+      </div>
+      <dl class="credit-list reveal">
+        <div>
+          <dt>Juan Felipe López</dt>
+          <dd>Rig y animaciones propios en las entregas individuales, sobre el proxy de Génesis. Modelo final en conjunto: optimización y mejora de la malla en Maya, UVs, texturas y aplicación de las animaciones. Montaje de la escena de la cinemática final en Unity.</dd>
+        </div>
+        <div>
+          <dt>Génesis Valeska Rivas Carmona</dt>
+          <dd>Responsable del personaje desde el inicio: proxy, rig, animaciones e integración en Unity. Participó en las ideas de guion y en los detalles, con autoría sobre las entregas y aportes indicados en este portafolio.</dd>
+        </div>
+        <div>
+          <dt>Equipo Leyend-itas</dt>
+          <dd>Dulce Rojas y Susana Sepúlveda (la Llorona), Juliana Vieira y Jimena Duque (los Itas), Génesis Rivas y Juan Felipe López (la Patasola). El escenario y la animación de los personajes los hicimos entre todos.</dd>
+        </div>
+      </dl>
+    </div>
+    <div class="footer-forest" aria-hidden="true">
+      <svg viewBox="0 0 1200 110" preserveAspectRatio="xMidYMax slice">
+        <use href="#deadtree" x="20" y="10" width="70" height="100" color="#3c4a70"/>
+        <use href="#pine" x="120" y="20" width="54" height="90" color="#3c4a70"/>
+        <use href="#pine" x="200" y="0" width="66" height="110" color="#2f3c5e"/>
+        <use href="#mushroom" x="300" y="80" width="30" height="30"/>
+        <use href="#deadtree" x="420" y="15" width="70" height="95" color="#3c4a70"/>
+        <use href="#pine" x="560" y="10" width="60" height="100" color="#2f3c5e"/>
+        <use href="#pine" x="640" y="35" width="44" height="75" color="#3c4a70"/>
+        <use href="#deadtree" x="780" y="5" width="76" height="105" color="#2f3c5e"/>
+        <use href="#pine" x="900" y="20" width="56" height="90" color="#3c4a70"/>
+        <use href="#mushroom" x="980" y="82" width="28" height="28"/>
+        <use href="#pine" x="1060" y="0" width="70" height="110" color="#2f3c5e"/>
+        <use href="#pine" x="1140" y="30" width="50" height="80" color="#3c4a70"/>
+      </svg>
+    </div>
+    <footer class="footer">
+      <p>Juan Felipe López · La Patasola · Leyend-itas</p>
+    </footer>
+  </section>
+
+  <dialog class="lightbox" aria-label="Imagen ampliada">
+    <button type="button" class="lightbox-close" aria-label="Cerrar">×</button>
+    <img alt="">
+    <p class="lightbox-caption hand"></p>
+  </dialog>
+
+  <script src="js/main.js" defer></script>
+  <script type="module" src="js/viewer.js"></script>
+</body>
+</html>
